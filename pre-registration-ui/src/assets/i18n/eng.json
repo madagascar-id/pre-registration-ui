@@ -382,9 +382,10 @@
     "label_reg_cntr_dtl": "Center Address"
   },
   "preview": {
-    "title_preview": "Preview",
+    "title_preview": "Registration Details",
     "language": "English",
     "subheading_information": "Personal Information",
+    "label_pre_id": "Registration Number",
     "label_name": "Full Name",
     "label_age": "Age",
     "label_DOB": "DOB",
