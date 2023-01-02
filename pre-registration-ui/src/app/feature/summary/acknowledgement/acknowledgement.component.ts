@@ -44,6 +44,7 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
   langCode;
   textDir = localStorage.getItem("dir");
   name = "";
+  firstName = "";
   applicantContactDetails = [];
   constructor(
     private bookingService: BookingService,
@@ -75,6 +76,7 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
     this.name = this.configService.getConfigByKey(
       appConstants.CONFIG_KEYS.preregistration_identity_name
     );
+    this.firstName = "firstName";
     await this.getUserInfo(this.preRegIds);
     //console.log(this.usersInfoArr);
     for (let i = 0; i < this.usersInfoArr.length; i++) {
@@ -127,13 +129,26 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
             };
             nameListObj.preRegId = user["request"].preRegistrationId;
             nameListObj.status = user["request"].statusCode;
-            if (demographicData[this.name]) {
+            /*if (demographicData[this.name]) {
               let nameValues = demographicData[this.name];
               nameValues.forEach(nameVal => {
                 if (nameVal["language"] == applicationLang) {
                   nameListObj.fullName = nameVal["value"];
                 }
               });  
+            }*/
+            if (demographicData[this.name]) {
+              let nameValues = [];
+              if(demographicData[this.firstName]) {
+                nameValues.push(demographicData[this.firstName][0]);
+              }
+              nameValues.push(demographicData[this.name][0]);
+
+              nameValues.forEach(nameVal => {
+                if (nameVal["language"] == applicationLang) {
+                  nameListObj.fullName += " " + nameVal["value"];
+                }
+              });
             }
             if (demographicData["postalCode"]) {
               nameListObj.postalCode = demographicData["postalCode"];
