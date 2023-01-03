@@ -118,6 +118,8 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
             const nameListObj: NameList = {
               preRegId: "",
               fullName: "",
+              firstName: "",
+              lastName: "",
               regDto: "",
               status: "",
               registrationCenter: "",
@@ -129,15 +131,23 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
             };
             nameListObj.preRegId = user["request"].preRegistrationId;
             nameListObj.status = user["request"].statusCode;
-            /*if (demographicData[this.name]) {
+            if (demographicData[this.name]) {
               let nameValues = demographicData[this.name];
               nameValues.forEach(nameVal => {
                 if (nameVal["language"] == applicationLang) {
-                  nameListObj.fullName = nameVal["value"];
+                  nameListObj.lastName = nameVal["value"];
                 }
               });  
-            }*/
-            if (demographicData[this.name]) {
+            }
+            if (demographicData[this.firstName]) {
+                          let nameValues = demographicData[this.firstName];
+                          nameValues.forEach(nameVal => {
+                            if (nameVal["language"] == applicationLang) {
+                              nameListObj.firstName = nameVal["value"];
+                            }
+                          });
+                        }
+            /*if (demographicData[this.name]) {
               let nameValues = [];
               if(demographicData[this.firstName]) {
                 nameValues.push(demographicData[this.firstName][0]);
@@ -149,7 +159,7 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
                   nameListObj.fullName += " " + nameVal["value"];
                 }
               });
-            }
+            }*/
             if (demographicData["postalCode"]) {
               nameListObj.postalCode = demographicData["postalCode"];
             }
@@ -285,7 +295,8 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
           contactPhoneLabels.push(labels.label_cntr_contact_number);
           labelNames.push(labels.label_name);
           labelRegCntrs.push(labels.label_reg_cntr);
-          nameValues.push(userInfo.fullName);
+          //nameValues.push(userInfo.fullName);
+          nameValues.push(userInfo.firstName += " " + userInfo.lastName);
           //console.log(userInfo.registrationCenter.name);
           if (userInfo.registrationCenter.name) {
             regCntrNames.push(userInfo.registrationCenter.name);
@@ -570,7 +581,8 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
             }
           });
           notificationObject[user.langCode] = new NotificationDtoModel(
-            user.fullName,
+            //user.fullName,
+            user.lastName,
             user.preRegId,
             user.bookingData
               ? user.bookingData.split(",")[0]

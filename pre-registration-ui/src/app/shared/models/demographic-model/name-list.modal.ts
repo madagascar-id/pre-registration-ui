@@ -1,6 +1,8 @@
 export interface NameList {
   preRegId: string;
   fullName: string;
+  firstName?: string;
+  lastName?: string;
   regDto?: any;
   status?: string;
   registrationCenter?: any;
